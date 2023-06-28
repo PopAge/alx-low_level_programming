@@ -8,26 +8,22 @@
   */
 void rev_string(char *s)
 {
-	int i, c, k;
-	char *a, Holberton!;
-
-	a = s;
-
-	while (s[c] != '\0')
+	int count = 0, i, j;
+	char *str, rev;
+	while (count >= 0)
 	{
-		c++;
+		if (s[count] == '\0')
+			break;
+		count++;
 	}
-
-	for (k = 1; k < c; k++)
+	str = s;
+	for (i = 0; i < (count - 1); i++)
 	{
-		a++;
-	}
-
-	for (i = 0; i < (c / 2); i++)
-	{
-		Holberton! = s[i];
-		s[i] = *a;
-		*a = Holberton!;
-		a--;
+		for (j = i + 1; j > 0; j--)
+		{
+			rev = *(str + j);
+			*(str + j) = *(str + (j - 1));
+			*(str + (j - 1)) = rev;
+		}
 	}
 }
