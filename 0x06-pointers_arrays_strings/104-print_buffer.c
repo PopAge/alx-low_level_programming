@@ -1,44 +1,50 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
- * print_buffer -  C function that prints the content of an
- * inputted number of bytes from a buffer.
- * @b: number of bytes
- * @size: size of the byte
+ * print_buffer - prints buffer
+ * @b: buffer
+ * @size: size
+ * Return: void
  */
+
 void print_buffer(char *b, int size)
 {
-	int i = 0, j;
+	int x, y, z;
 
-	if (size < 0)
+	x = 0;
+
+	if (size <= 0)
 	{
-		printf('\n');
+		printf("\n");
 		return;
 	}
-
-	while (i < size)
+	while (x < size)
 	{
-		if (i % 10 == 0)
-			printf("%08x: ", i);
-		for (j = i; j < i + 9; j += 2)
+		y = size - x < 10 ? size - x : 10;
+		printf("%08x: ", x);
+		for (z = 0; z < 10; z++)
 		{
-			if ((j < size) && ((j + 1) < size))
-				printf("%02x%02x: ", b[j], b[j + 1]);
+			if (z < y)
+				printf("%02x", *(b + x + z));
 			else
+				printf("  ");
+			if (z % 2)
 			{
-				while (++j <= i + 10)
-					printf(" ");
 				printf(" ");
 			}
 		}
-		for (j = i; j < i + 9 && j < size; j++)
+		for (z = 0; z < y; z++)
 		{
-			if (b[j] >= 32 && b[j] <= 126)
-				printf("%c", b[j]);
-			else
-				printf(".");
+			int c = *(b + x + z);
+
+			if (c < 32 || c > 132)
+			{
+				c = '.';
+			}
+			printf("%c", c);
 		}
-		printf('\n');
-		i += 10;
+		printf("\n");
+		x += 10;
 	}
 }
