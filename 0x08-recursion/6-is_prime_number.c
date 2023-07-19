@@ -1,15 +1,5 @@
 #include "main.h"
-
-/**
- * is_prime_number - Return if a number is prime
- * @n: the number to be checked
- *
- * Return: integer value
- */
-int is_prime_number(int n)
-{
-	return (check_prime(n, 1));
-}
+#include <stdio.h>
 
 /**
  *check_prime - Check if number is prime
@@ -26,4 +16,15 @@ int check_prime(int n, int i)
 	if ((n / i) < i)
 	return (1);
 	return (check_prime(n, i + 1));
+}
+
+/**
+ * is_prime_number - Return if a number is prime
+ * @n: the number to be checked
+ *
+ * Return: integer value
+ */
+int is_prime_number(int n)
+{
+	return (check_prime(n, 1));
 }
