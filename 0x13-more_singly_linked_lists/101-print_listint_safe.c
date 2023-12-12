@@ -1,43 +1,62 @@
 #include "lists.h"
 #include <stdio.h>
 
+size_t looped_listint_len(const listint_t *head);
+size_t print_listint_safe(const listint_t *head);
+
 /**
- * looped_listint_len - Counts the number of unique nodes
- * in a looped listint_t linked list.
- * @head: A pointer to the head of the listint_t to check.
+ * looped_listint_len - count n of unique node
+ * @head: pointer to head of listint_t
  *
- * Return: If the list is not looped - 0.
- * Otherwise - the number of unique nodes in the list.
+ * Return:0 -  if ls is not looped, or n of unique
+ * node in ls
  */
 size_t looped_listint_len(const listint_t *head)
 {
 	const listint_t *mouse, *cat;
-	size_t nodes = 0;
+	size_t nodes = 1;
 
 	if (head == NULL || head->next == NULL)
 		return (0);
 
-	mouse = head;
-	cat = head;
+	mouse = head->next;
+	cat = (head->next)->next;
 
-	do {
+	while (cat)
+	{
+		if (mouse == cat)
+		{
+			mouse = head;
+			while (mouse != cat)
+			{
+				nodes++;
+				mouse = mouse->next;
+				cat = cat->next;
+			}
+
+			mouse = mouse->next;
+			while (mouse != cat)
+			{
+				nodes++;
+				mouse = mouse->next;
+			}
+
+			return (nodes);
+		}
+
 		mouse = mouse->next;
-		cat = cat->next;
+		cat = (cat->next)->next;
 
-		if (cat == NULL || cat->next == NULL)
-			return (0);
+	}
 
-		cat = cat->next;
-		nodes++;
-	} while (mouse != cat);
-	return (nodes);
+	return (0);
 }
 
 /**
- * print_listint_safe - Prints a listint_t list safely.
- * @head: A pointer to the head of the listint_t list.
+ * print_listint_safe - const listint_t *head)
+ * @head: pointer to head of listint_t ls
  *
- * Return: The number of nodes in the list.
+ * Return: n nodes in ls
  */
 size_t print_listint_safe(const listint_t *head)
 {
@@ -45,15 +64,24 @@ size_t print_listint_safe(const listint_t *head)
 
 	nodes = looped_listint_len(head);
 
-	for (; head != NULL && (index < nodes || nodes == 0); index++)
+	if (nodes == 0)
 	{
-		printf("[%p] %d\n", (void *)head, head->n);
-		head = head->next;
+		for (; head != NULL; nodes++)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+		}
 	}
 
-	if (nodes > 0)
-		printf("-> [%p] %d\n", (void *)head, head->n);
+	else
+	{
+		for (index = 0; index < nodes; index++)
+		{
+			printf("[%p] %d\n", (void *)head, head->n);
+			head = head->next;
+		}
+
+		printf("->[%p] %d\n", (void *)head, head->n);
+	}
 
 	return (nodes);
 }
-
