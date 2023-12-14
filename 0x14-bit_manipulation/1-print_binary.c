@@ -8,21 +8,21 @@
 void print_binary(unsigned long int n)
 
 {
-	int x, counter = 0;
+	int x, count = 0;
 	unsigned long int bnum;
 
-	for (x = 60; x >= 0; x--)
+	for (x = 64; x >= 0; x--)
 	{
 		bnum = n >> x;
 
 		if (bnum & 1)
 		{
 			_putchar('1');
-			counter++;
+			count++;
 		}
-		else if (counter)
+		else if (count)
 			_putchar('0');
 	}
-	if (!counter)
+	if (!count)
 		_putchar('0');
 }
