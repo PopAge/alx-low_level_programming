@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 
 	buffer = create_buffer(argv[2]);
 	cpfrom = open(argv[1], O_RDONLY);
-	rd = read(from, buffer, 1024);
+	rd = read(cpfrom, buffer, 1024);
 	cpto = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
